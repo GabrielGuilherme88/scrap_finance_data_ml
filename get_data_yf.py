@@ -40,18 +40,18 @@ def get_data_from_tickers(file_txt, period="1mo", interval="1d"):
     else:
         return pd.DataFrame()
 
-if __name__ == "__main__":
-    if not os.path.exists(FILE_TXT):
-        subprocess.run([sys.executable, os.path.join(BASE_DIR, "get_tickers.py")], check=True)
+# if __name__ == "__main__":
+#     if not os.path.exists(FILE_TXT):
+#         subprocess.run([sys.executable, os.path.join(BASE_DIR, "get_tickers.py")], check=True)
 
-    if not os.path.exists(FILE_TXT):
-        print("Erro: não foi possível criar o arquivo tickers_b3.txt")
-        sys.exit(1)
+#     if not os.path.exists(FILE_TXT):
+#         print("Erro: não foi possível criar o arquivo tickers_b3.txt")
+#         sys.exit(1)
 
-    df = get_data_from_tickers(FILE_TXT, period="1mo", interval="1d")
-    if not df.empty:
-        # Salva em CSV
-        df.to_csv(FILE_CSV, index=False, sep=";", encoding="utf-8")
-        print(f"Arquivo historico_tickers.csv salvo com {len(df)} linhas.")
-    else:
-        print("Nenhum dado coletado.")
+#     df = get_data_from_tickers(FILE_TXT, period="1mo", interval="1d")
+#     if not df.empty:
+#         # Salva em CSV
+#         df.to_csv(FILE_CSV, index=False, sep=";", encoding="utf-8")
+#         print(f"Arquivo historico_tickers.csv salvo com {len(df)} linhas.")
+#     else:
+#         print("Nenhum dado coletado.")

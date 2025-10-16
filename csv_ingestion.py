@@ -1,7 +1,5 @@
 import pandas as pd
-from data_insert import salvar_dados_no_db
-from db_model import HistoricoTicker, get_db
-import datetime
+from data_insert import salvar_dados_no_db, salvar_historico_no_db
 
 # Caminhos dos arquivos CSV
 ARQUIVO_COTACOES = "altas_baixas_b3.csv"
@@ -66,43 +64,6 @@ def ler_csv_e_inserir_no_db():
 # =======================================================
 # Ingestão de Histórico (nova parte)
 # =======================================================
-
-def salvar_historico_no_db(dados):
-    """Insere ou atualiza registros na tabela historico_tickers."""
-    session = get_db()
-    try:
-        contagem = 0
-        for item in dados:
-            try:
-                existente = session.query(HistoricoTicker).filter_by(
-                    Date=item["Date"],
-                    Ticker=item["Ticker"]
-                ).first()
-
-                if existente:
-                    # Atualiza os campos existentes
-                    for k, v in item.items():
-                        setattr(existente, k, v)
-                else:
-                    # Insere novo registro
-                    novo = HistoricoTicker(**item)
-                    session.add(novo)
-
-                contagem += 1
-
-            except Exception as e_item:
-                print(f"ERRO ao processar item {item.get('Ticker', 'N/A')}: {e_item}")
-                continue
-
-        session.commit()
-        print(f"SUCESSO: {contagem} registros inseridos/atualizados em historico_tickers.")
-
-    except Exception as e:
-        session.rollback()
-        print(f"ERRO ao salvar histórico no DB: {e}")
-
-    finally:
-        session.close()
 
 def ler_csv_historico_e_inserir_no_db():
     """Lê o CSV historico_tickers.csv e grava na tabela HistoricoTicker."""

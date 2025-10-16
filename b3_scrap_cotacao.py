@@ -135,5 +135,5 @@ def rodar_pipeline_csv():
     print("=" * 40)
 
 
-if __name__ == "__main__":
-    rodar_pipeline_csv()
+# if __name__ == "__main__":
+#     rodar_pipeline_csv()
