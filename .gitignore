@@ -1,0 +1,5 @@
+aws_credentials.yaml
+aws_config.yaml
+config.yaml
+*.log
+*.tmp
